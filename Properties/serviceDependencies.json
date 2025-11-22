@@ -1,9 +1,3 @@
 {
-  "dependencies": {
-    "mssql1": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:GreenQuestDB",
-      "dynamicId": null
-    }
-  }
+  "dependencies": {}
 }

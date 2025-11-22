@@ -1,11 +1,9 @@
-﻿using GreenQuest.AI.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using GreenQuest.AI.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity; 
 
 namespace GreenQuest.AI.Data
 {
-    public class ApplicationDbContext : IdentityDbContext <IdentityUser, ApplicationRole, string>
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -13,5 +11,21 @@ namespace GreenQuest.AI.Data
         }
 
         public DbSet<Event> Events { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Event>(entity =>
+            {
+                // CreatedAt se setează automat la inserare
+                entity.Property(e => e.CreatedAt)
+                    .HasDefaultValueSql("GETUTCDATE()");
+
+                // LastUpdatedAt se actualizează automat la modificare
+                entity.Property(e => e.LastUpdatedAt)
+                    .HasDefaultValueSql("GETUTCDATE()");
+            });
+        }
     }
 }
