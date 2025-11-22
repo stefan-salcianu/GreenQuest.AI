@@ -1,3 +1,5 @@
+//# Ceva cod adaugat degeaba
+
 using GreenQuest.AI.Data;
 using GreenQuest.AI.Models;
 using Microsoft.AspNetCore.Identity;
